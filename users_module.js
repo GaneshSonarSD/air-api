@@ -29,7 +29,7 @@ const router = express.Router();
 router.get("/:id", async (req, res) => {
   /** getting user email */
   console.log(req.params.id);
-  let data = await user.find({ _id: req.params.id });
+  let data = await User.find({ _id: req.params.id });
   console.log(data);
 
   // res.send(req.params);
@@ -38,11 +38,11 @@ router.get("/:id", async (req, res) => {
 
 router
   .route("/")
-  .get((req, res) => {
-   // let data =  user.find(); // collection_name.find()
+  .get(async(req, res) => {
+    let data = await User.find(); // collection_name.find()
     //console.log(data);
-   // res.send(data);
-    res.sendFile(__dirname+"/index.html")
+    res.send(data);
+   //res.sendFile(__dirname+"/index.html")
   })
   .post(async (req, res) => {
     req_data = req.body;
