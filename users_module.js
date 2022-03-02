@@ -11,17 +11,17 @@ mongoose
   .catch((error) => console.log(error));
 
 const userSchema = new mongoose.Schema({
- PM1: number,
- PM2: number,
- PM10: number,
- Gas: number,
- Temperature: number,
- Humidity: number,
- Year: number,
- Month: number,
- Date: number,
- Hours: number,
- Minutes: number
+ PM1: Number,
+ PM2: Number,
+ PM10: Number,
+ Gas: Number,
+ Temperature: Number,
+ Humidity: Number,
+ Year: Number,
+ Month: Number,
+ Date: Number,
+ Hours: Number,
+ Minutes: Number
 });
 
 const User = new mongoose.model("user", userSchema);
