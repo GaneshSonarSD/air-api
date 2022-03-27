@@ -1,6 +1,6 @@
 const express = require("express");
 var user = require('./users_module');
-const port = 8080;
+const port = 3030;
 
 const app = express();
 app.use(express.json());
@@ -16,5 +16,5 @@ app.use(function(req, res, next) {
 });
 
 app.listen(process.env.PORT || port, () => {
-	console.log("listening 8080...");
+	console.log("listening 3030...");
 });
