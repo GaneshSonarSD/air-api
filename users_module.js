@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+var nodeoutlook = require('nodejs-nodemailer-outlook')
 
 //** connection to database */
 const conn_str =
- // "mongodb+srv://admin:admin@cluster0.cwsvi.mongodb.net/tcet?retryWrites=true&w=majority";
+// "mongodb+srv://admin:admin@cluster0.cwsvi.mongodb.net/tcet?retryWrites=true&w=majority";
   "mongodb+srv://admin:admin@cluster0.jkxiq.mongodb.net/Project?retryWrites=true&w=majority";
 
 mongoose
@@ -28,8 +29,10 @@ const User = new mongoose.model("user", userSchema);
 
 /** Express Mongoose Integration **/
 const express = require("express");
+const e = require("express");
 const app = express();
 const router = express.Router();
+
 
 router.get("/:id", async (req, res) => {
   /** getting user email */
@@ -49,14 +52,127 @@ router
     res.send(data);
    //res.sendFile(__dirname+"/index.html")
   })
+
+// -------Posting Data--------//
+
+
+
   .post(async (req, res) => {
     req_data = req.body;
+  
     // console.log(req_data);
+    
     let obj = new User(req_data);
     let result = await obj.save();
     console.log(result);
-    // res.send(req_data);
     res.send(result);
+    //console.log(result.id);
+    //console.log(result.Gas);
+
+    ///  threshold value setting and alert system
+if(result.Gas > 4 && result.PM2 > 45 && result.PM10 > 61){
+
+  nodeoutlook.sendEmail({
+    auth: {
+        user: "vinodsonar9777@outlook.com",
+        pass: "Ajay@9930"
+    },
+    from: 'vinodsonar9777@outlook.com',
+    to: 'vinodsonar9777@gmail.com',
+    subject: ' Alert!!! Dangerous air particals detected',
+    html: '<b>Air Quality is Dangerous Be careful </b> ',
+    text: 'PM 2, PM10 and gas value are  ' +result.PM2 + ' '+ result.PM10+ ' '+ result.Gas,
+    replyTo: 'vinodsonar9777@gmail.com',
+    
+    onError: (e) => console.log(e),
+    onSuccess: (i) => console.log(i)
+    
+}
+);
+} else {
+//------------------------------//
+     if(result.Gas > 4){
+      
+      //console.log("gas is more than 3");
+      nodeoutlook.sendEmail({
+        auth: {
+            user: "vinodsonar9777@outlook.com",
+            pass: "Ajay@9930"
+        },
+        from: 'vinodsonar9777@outlook.com',
+        to: 'vinodsonar9777@gmail.com',
+        subject: ' Alert!!! Dangerous air particals detected',
+        html: '<h3>Gas Value is high be careful </h3>' + result.Gas,
+        text: 'This is text version!',
+        replyTo: 'vinodsonar9777@gmail.com',
+        
+        onError: (e) => console.log(e),
+        onSuccess: (i) => console.log(i)
+        
+    }
+    );
+    }
+//------------------------------//
+
+///  PM2.5 threshold value set
+
+if(result.PM2 > 45){
+  
+  //console.log("gas is more than 3");
+  nodeoutlook.sendEmail({
+    auth: {
+        user: "vinodsonar9777@outlook.com",
+        pass: "Ajay@9930"
+    },
+    from: 'vinodsonar9777@outlook.com',
+    to: 'vinodsonar9777@gmail.com',
+    subject: ' Alert!!! there is Dangerous air particals detected',
+    html: '<h3>PM 2.5 high be careful </h3>' + result.PM2,
+    text: 'This is text version!',
+    replyTo: 'vinodsonar9777@gmail.com',
+    
+    onError: (e) => console.log(e),
+    onSuccess: (i) => console.log(i)
+    
+}
+);
+}
+//------------------------------//
+
+///  PM2.5 threshold value set
+
+if(result.PM10 > 60){
+  
+  //console.log("gas is more than 3");
+  nodeoutlook.sendEmail({
+    auth: {
+        user: "vinodsonar9777@outlook.com",
+        pass: "Ajay@9930"
+    },
+    from: 'vinodsonar9777@outlook.com',
+    to: 'vinodsonar9777@gmail.com',
+    subject: ' Alert!!! there is Dangerous air particle detected',
+    html: '<b>PM 10 is More Be careful </b> ' + result.PM10,
+    text: 'This is text version!',
+    replyTo: 'vinodsonar9777@gmail.com',
+   
+    
+    onError: (e) => console.log(e),
+    onSuccess: (i) => console.log(i)
+    
+}
+);
+}
+
+}
+//------------------------------//
+
+  // errror on concernt msg  
+
+
+
+    // res.send(req_data);
+  // res.send(result);
   })
   /*.put(async (req, res) => {
     req_data = req.body;

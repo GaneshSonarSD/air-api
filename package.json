@@ -13,6 +13,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "mongoose": "^6.2.2"
+    "mongoose": "^6.2.2",
+    "nodejs-nodemailer-outlook": "^1.2.4",
+    "nodemailer": "^6.7.8"
   }
 }
