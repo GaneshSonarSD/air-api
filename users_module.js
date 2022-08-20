@@ -70,7 +70,7 @@ router
     //console.log(result.Gas);
 
     ///  threshold value setting and alert system
-if(result.Gas > 4 && result.PM2 > 45 && result.PM10 > 61){
+if(result.Gas > 4 && result.PM2 > 125 && result.PM10 > 61){
 
   nodeoutlook.sendEmail({
     auth: {
@@ -116,7 +116,7 @@ if(result.Gas > 4 && result.PM2 > 45 && result.PM10 > 61){
 
 ///  PM2.5 threshold value set
 
-if(result.PM2 > 45){
+if(result.PM2 > 125){
   
   //console.log("gas is more than 3");
   nodeoutlook.sendEmail({
