@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 //var nodeoutlook = require('nodejs-nodemailer-outlook');
-const accountSid = 'AC042bb34d445def4e1ab31b4e9f50e5e4'; 
-const authToken = '39d35aabe31c2775d9207d957eb07f2e'; 
+require('dotenv').config()
+const accountSid = process.env.ACCOUNT;
+const authToken = process.env.AUTH;
 const client = require('twilio')(accountSid, authToken); 
 
 //** connection to database */
@@ -52,8 +53,8 @@ router
   .get(async(req, res) => {
     let data = await User.find(); // collection_name.find()
     //console.log(data);
-    res.send(data);
-  //res.sendFile(__dirname+"/index.html")
+   // res.send(data);
+   res.sendFile(__dirname+"/index.html")
   })
 
 // -------Posting Data--------//
