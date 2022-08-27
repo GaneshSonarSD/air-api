@@ -26,7 +26,11 @@ const userSchema = new mongoose.Schema({
  Month: Number,
  Date: Number,
  Hours: Number,
- Minutes: Number
+ Minutes: Number,
+ Location: {
+  type: { type: String },
+  coordinates: []
+}
 });
 
 const User = new mongoose.model("user", userSchema);
