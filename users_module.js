@@ -61,8 +61,8 @@ router
   .get(async(req, res) => {
     let data = await User.find(); // collection_name.find()
     //console.log(data);
-   // res.send(data);
-   res.sendFile(__dirname+"/index.html")
+   res.send(data);
+ //  res.sendFile(__dirname+"/index.html")
   })
 
 // -------Posting Data--------//
