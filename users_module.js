@@ -29,7 +29,11 @@ const userSchema = new mongoose.Schema({
  Minutes: Number,
  Location: {
   type: { type: String },
-  coordinates: []
+  
+  coordinates: {
+    type: [Number],
+    index: "2d",
+  }
 }
 });
 
@@ -57,8 +61,8 @@ router
   .get(async(req, res) => {
     let data = await User.find(); // collection_name.find()
     //console.log(data);
-    res.send(data);
-   //res.sendFile(__dirname+"/index.html")
+    //res.send(data);
+   res.sendFile(__dirname+"/index.html")
   })
 
 // -------Posting Data--------//
